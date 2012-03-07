@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 namespace Castle.ActiveRecord.ByteCode 
 {
 	using NHibernate.Bytecode;
@@ -21,11 +22,12 @@ namespace Castle.ActiveRecord.ByteCode
     /// The factory infrastructure used to build AR proxy objects.
     /// Use this one if you want automatic session management durring proxy hydration.
     /// </summary>
-    public class ProxyFactoryFactory : IProxyFactoryFactory 
+    public class ProxyFactoryFactory : IProxyFactoryFactory
     {
         public IProxyFactory BuildProxyFactory() 
         {
-            return new ProxyFactory();
+            // HACK: I am using NHibernate default option here
+            return new DefaultProxyFactory();
         }
 
     	public bool IsProxy(object entity)

@@ -11,13 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 namespace Castle.ActiveRecord.ByteCode 
 {
 	using System;
 	using DynamicProxy;
 	using NHibernate;
-	using NHibernate.ByteCode.Castle;
 	using NHibernate.Engine;
 	using NHibernate.Proxy;
 
@@ -32,7 +30,8 @@ namespace Castle.ActiveRecord.ByteCode
         }
 
         /// <summary>
-		/// Build a proxy using the Castle.DynamicProxy library, that overrides the default <see cref="NHibernate.ByteCode.Castle.LazyInitializer"/>
+        /// Build a proxy using the Castle.DynamicProxy library, 
+        /// that overrides the default <see cref="NHibernate.Proxy.DefaultLazyInitializer"/>
         /// </summary>
         /// <param name="id">The value for the Id.</param>
         /// <param name="session">The Session the proxy is in.</param>
@@ -45,9 +44,8 @@ namespace Castle.ActiveRecord.ByteCode
             	                                      SetIdentifierMethod, ComponentIdType, session);
 
                 object generatedProxy = IsClassProxy
-                                            ? ProxyGenerator.CreateClassProxy(PersistentClass, Interfaces, initializer)
-                                            : ProxyGenerator.CreateInterfaceProxyWithoutTarget(Interfaces[0], Interfaces,
-                                                                                                initializer);
+                        ? ProxyGenerator.CreateClassProxy(PersistentClass, Interfaces, initializer)
+                        : ProxyGenerator.CreateInterfaceProxyWithoutTarget(Interfaces[0], Interfaces, initializer);
 
                 initializer._constructed = true;
                 return (INHibernateProxy)generatedProxy;
@@ -59,16 +57,25 @@ namespace Castle.ActiveRecord.ByteCode
             }
         }
 
-		/// <summary>
-		/// Returns a proxy capable of field interception.
-		/// </summary>
-		/// <returns></returns>
-        public override object GetFieldInterceptionProxy() 
+        public override object GetFieldInterceptionProxy(object instanceToWrap)
         {
+            //return base.GetFieldInterceptionProxy(instanceToWrap);
             var proxyGenerationOptions = new ProxyGenerationOptions();
             var interceptor = new LazyFieldInterceptor();
             proxyGenerationOptions.AddMixinInstance(interceptor);
             return ProxyGenerator.CreateClassProxy(PersistentClass, proxyGenerationOptions, interceptor);
         }
+
+        ///// <summary>
+        ///// Returns a proxy capable of field interception.
+        ///// </summary>
+        ///// <returns></returns>
+        //public override object GetFieldInterceptionProxy()
+        //{
+        //    var proxyGenerationOptions = new ProxyGenerationOptions();
+        //    var interceptor = new LazyFieldInterceptor();
+        //    proxyGenerationOptions.AddMixinInstance(interceptor);
+        //    return ProxyGenerator.CreateClassProxy(PersistentClass, proxyGenerationOptions, interceptor);
+        //}
     }
 }

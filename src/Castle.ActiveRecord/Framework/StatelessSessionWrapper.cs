@@ -132,14 +132,14 @@ namespace Castle.ActiveRecord.Framework
 			return statelessSession.CreateSQLQuery(queryString);
 		}
 
+        public void Delete(object obj)
+        {
+            statelessSession.Delete(obj);
+        }
+
 		public void Delete(string entityName, object obj)
 		{
 			statelessSession.Delete(entityName, obj);
-		}
-
-		public void Delete(object obj)
-		{
-			statelessSession.Delete(obj);
 		}
 
 		public object Get(Type clazz, object id)
@@ -172,9 +172,9 @@ namespace Castle.ActiveRecord.Framework
 			return statelessSession.GetNamedQuery(queryName);
 		}
 
-		public NHibernate.Engine.ISessionImplementor GetSessionImplementation()
+		public ISessionImplementor GetSessionImplementation()
 		{
-			return ((NHibernate.Engine.ISessionImplementor)statelessSession);
+			return ((ISessionImplementor)statelessSession);
 		}
 
 		public object Load(string entityName, object id)
@@ -227,17 +227,27 @@ namespace Castle.ActiveRecord.Framework
 			statelessSession.Update(obj);
 		}
 
+        public ITransaction BeginTransaction(System.Data.IsolationLevel isolationLevel)
+        {
+            return statelessSession.BeginTransaction(isolationLevel);
+        }
+
+        public void Refresh(object obj, LockMode lockMode)
+        {
+            statelessSession.Refresh(obj, lockMode);
+        }
+
+        public void Refresh(object obj)
+        {
+            statelessSession.Refresh(obj);
+        }
+
 		#endregion
 
 		#region Unsupported
 		public EntityMode ActiveEntityMode
 		{
 			get { throw new NotWrappedException(); }
-		}
-
-		public ITransaction BeginTransaction(System.Data.IsolationLevel isolationLevel)
-		{
-			throw new NotWrappedException();
 		}
 
 		public CacheMode CacheMode
@@ -479,15 +489,7 @@ namespace Castle.ActiveRecord.Framework
 			throw new NotWrappedException();
 		}
 
-		public void Refresh(object obj, LockMode lockMode)
-		{
-			throw new NotWrappedException();
-		}
 
-		public void Refresh(object obj)
-		{
-			throw new NotWrappedException();
-		}
 
 		public void Replicate(string entityName, object obj, ReplicationMode replicationMode)
 		{
@@ -556,6 +558,26 @@ namespace Castle.ActiveRecord.Framework
 			throw new NotWrappedException();
 		}
 
+        public T Merge<T>(string entityName, T entity) where T : class
+        {
+            throw new NotWrappedException();
+        }
+
+        public T Merge<T>(T entity) where T : class
+        {
+            throw new NotWrappedException();
+        }
+
+        public IQueryOver<T, T> QueryOver<T>(string entityName, Expression<Func<T>> alias) where T : class
+        {
+            throw new NotWrappedException();
+        }
+
+        public IQueryOver<T, T> QueryOver<T>(string entityName) where T : class
+        {
+            throw new NotWrappedException();
+        }
+
 		#endregion
 
 		#region IDisposable Members
@@ -565,9 +587,12 @@ namespace Castle.ActiveRecord.Framework
 			statelessSession.Dispose();
 		}
 
+        
 		#endregion
+
 #pragma warning restore 1591
-	}
+
+    }
 
 	/// <summary>
 	/// Wraps a NotImplementedException with a preconfigured Castle-like
@@ -580,7 +605,8 @@ namespace Castle.ActiveRecord.Framework
 		/// </summary>
 		public NotWrappedException()
 			: base(@"The called method is not supported.
-ActiveRecord is currently running within a StatelessSessionScope. Stateless sessions are faster than normal sessions, but they do not support all methods and properties that a normal session allows. 
+ActiveRecord is currently running within a StatelessSessionScope. 
+Stateless sessions are faster than normal sessions, but they do not support all methods and properties that a normal session allows. 
 Please check the stacktrace and change your code accordingly.") { }
 	}
 }
