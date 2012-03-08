@@ -14,8 +14,6 @@
 
 namespace Castle.ActiveRecord.Framework.Config 
 {
-    using Castle.ActiveRecord.ByteCode;
-
 	using NHibernate.Bytecode;
 	using NHibernate.Connection;
 	using NHibernate.Dialect;
@@ -96,7 +94,7 @@ namespace Castle.ActiveRecord.Framework.Config
 
 		/// <summary>
 		/// The proxy factory to use. This value defaults to 
-		/// <see cref="ProxyFactoryFactory"/>.
+        /// <see cref="NHibernate.Proxy.DefaultProxyFactory"/>.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>

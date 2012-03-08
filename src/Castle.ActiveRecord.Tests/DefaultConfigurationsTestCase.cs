@@ -20,7 +20,6 @@ namespace Castle.ActiveRecord.Tests
 
 	using Castle.ActiveRecord.Framework;
 	using Castle.ActiveRecord.Framework.Config;
-	using Castle.ActiveRecord.ByteCode;
 
 	using NHibernate.Connection;
 	using NHibernate.Dialect;
@@ -56,7 +55,7 @@ namespace Castle.ActiveRecord.Tests
 			AssertPropertyEquals(configuration, dialect, typeof(MsSql2005Dialect).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, connection_provider, typeof(DriverConnectionProvider).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, connection_driver_class, typeof(SqlClientDriver).AssemblyQualifiedName);
-			AssertPropertyEquals(configuration, proxyfactory_factory_class, typeof(ProxyFactoryFactory).AssemblyQualifiedName);
+			AssertPropertyEquals(configuration, proxyfactory_factory_class, typeof(Castle.ActiveRecord.ByteCode.ProxyFactoryFactory).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, cache_use_second_level_cache, false.ToString());
 			AssertPropertyEquals(configuration, connection_connection_string_name, "mycs");
 		}
@@ -68,7 +67,7 @@ namespace Castle.ActiveRecord.Tests
 			AssertPropertyEquals(configuration, dialect, typeof(SQLiteDialect).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, connection_provider, typeof(DriverConnectionProvider).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, connection_driver_class, typeof(SQLite20Driver).AssemblyQualifiedName);
-			AssertPropertyEquals(configuration, proxyfactory_factory_class, typeof(ProxyFactoryFactory).AssemblyQualifiedName);
+            AssertPropertyEquals(configuration, proxyfactory_factory_class, typeof(Castle.ActiveRecord.ByteCode.ProxyFactoryFactory).AssemblyQualifiedName);
 			AssertPropertyEquals(configuration, cache_use_second_level_cache, false.ToString());
 			AssertPropertyEquals(configuration, connection_connection_string_name, "mycs");
 			AssertPropertyEquals(configuration, "query.substitutions", "true=1;false=0");

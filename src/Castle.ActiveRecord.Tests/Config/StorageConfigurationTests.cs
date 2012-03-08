@@ -15,7 +15,6 @@
 namespace Castle.ActiveRecord.Tests.Config
 {
 	using Castle.ActiveRecord.Framework.Config;
-	using Castle.ActiveRecord.ByteCode;
 	using NHibernate.Connection;
 	using NHibernate.Dialect;
 	using NHibernate.Driver;
@@ -73,8 +72,8 @@ namespace Castle.ActiveRecord.Tests.Config
 		[Test]
 		public void ProxyFactoryIsAdded()
 		{
-			AssertConfiguration(_configuration.ProxiedBy<ProxyFactoryFactory>(), "proxyfactory.factory_class",
-                                "Castle.ActiveRecord.ByteCode.ProxyFactoryFactory, Castle.ActiveRecord");
+			AssertConfiguration(_configuration.ProxiedBy<NHibernate.Bytecode.DefaultProxyFactoryFactory>(), "proxyfactory.factory_class",
+                                "NHibernate.Bytecode.DefaultProxyFactoryFactory, NHibernate");
 		}
 	}
 }

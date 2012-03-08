@@ -32,7 +32,7 @@ namespace Castle.ActiveRecord.Framework.Config
 		private Type sessionFactoryHolderImplementation;
 		private Type namingStrategyImplementation;
 		private bool debug;
-		private bool isLazyByDefault;
+		private bool isLazyByDefault = true;
 		private bool pluralizeTableNames;
 		private bool verifyModelsAgainstDBSchema;
 		private DefaultFlushType defaultFlushType = DefaultFlushType.Classic;

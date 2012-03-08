@@ -18,7 +18,6 @@ namespace Castle.ActiveRecord.Tests.Config
 	using Castle.ActiveRecord.Framework.Scopes;
 	using NUnit.Framework;
 	using Castle.ActiveRecord.Framework.Config;
-	using Castle.ActiveRecord.ByteCode;
 	using NHibernate.Connection;
 	using NHibernate.Dialect;
 	using NHibernate.Driver;
@@ -59,7 +58,7 @@ namespace Castle.ActiveRecord.Tests.Config
 				.Driver<SqlClientDriver>()
 				.ConnectionProvider<DriverConnectionProvider>()
 				.Dialect<MsSql2005Dialect>()
-				.ProxiedBy<ProxyFactoryFactory>()
+				.ProxiedBy<Castle.ActiveRecord.ByteCode.ProxyFactoryFactory>()
 				.ShowSql();
 
 			IStorageConfiguration auditConfiguration = Configure.Storage

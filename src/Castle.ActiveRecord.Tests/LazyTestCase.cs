@@ -89,7 +89,7 @@ namespace Castle.ActiveRecord.Tests
 		[Test]
 		public void CanLoadLazyBelongsToOutsideOfScope()
 		{
-			ActiveRecordStarter.Initialize(GetConfigSource(), typeof(ScopelessLazy), typeof(ObjectWithLazyAssociation), typeof(VeryLazyObject2)); 
+			ActiveRecordStarter.Initialize(GetConfigSource(), typeof(ObjectWithLazyAssociation), typeof(VeryLazyObject2)); 
 			
 			Recreate();
 

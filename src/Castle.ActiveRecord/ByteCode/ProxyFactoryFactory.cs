@@ -26,8 +26,7 @@ namespace Castle.ActiveRecord.ByteCode
     {
         public IProxyFactory BuildProxyFactory() 
         {
-            // HACK: I am using NHibernate default option here
-            return new DefaultProxyFactory();
+            return new ProxyFactory();
         }
 
     	public bool IsProxy(object entity)

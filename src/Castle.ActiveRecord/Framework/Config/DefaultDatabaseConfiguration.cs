@@ -18,8 +18,6 @@ namespace Castle.ActiveRecord.Framework.Config
 	using System.Collections.Generic;
 	using System.Data;
 
-    using Castle.ActiveRecord.ByteCode;
-
 	using NHibernate.Connection;
 	using NHibernate.Dialect;
 	using NHibernate.Driver;
@@ -96,7 +94,7 @@ namespace Castle.ActiveRecord.Framework.Config
 		{
 			configuration[connection_provider] = LongName<DriverConnectionProvider>();
 			configuration[cache_use_second_level_cache] = false.ToString();
-			configuration[proxyfactory_factory_class] = LongName<ProxyFactoryFactory>();
+			configuration[proxyfactory_factory_class] = LongName<Castle.ActiveRecord.ByteCode.ProxyFactoryFactory>();
 			configuration[dialect] = LongName<TDialect>();
 			configuration[connection_driver_class] = LongName<TDriver>();
 			return configuration;
